@@ -13,7 +13,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 
 //Employee
-const MusicAlbum = sequelize.define('MusicAlbum', {
+const MusicAlbums = sequelize.define('MusicAlbum', {
     musicformat: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -70,6 +70,8 @@ const Composer = sequelize.define('Composer', {
     
 });
 sequelize.sync();
+
+
 
 //ของ table Musicformats
 app.get('/yuo', (req, res) => {
