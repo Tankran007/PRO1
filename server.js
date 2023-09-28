@@ -31,7 +31,7 @@ const MusicAlbum = sequelize.define('MusicAlbum', {
 });
 
 //Department
-const Musicformat = sequelize.define('Musicformat', {
+const Musicformats = sequelize.define('Musicformats', {
     id_fom: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -70,8 +70,131 @@ const Composer = sequelize.define('Composer', {
     
 });
 sequelize.sync();
+
+//ของ table Musicformats
+app.get('/yuo', (req, res) => {
+    Musicformats.findAll().then(formats => {
+        res.json(formats);
+    }).catch(err =>{
+        res.status(500).send(err);
+    });
+});
+
+app.get('/yuo/:id', (req, res) => {
+    Musicformats.findByPk(req.params.id).then(formats => {
+    if (!formats) {
+            res.status (404).send('music not found');
+        } else {    
+            res.json(formats) ;
+        }
+        }).catch(err => {
+            res.status(500).send(err);
+        });
+    });
+
+app.post('/yuo',(req,res) => {
+    Musicformats.create(req.body).then(formats => {
+        res.send(formats);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+
+});
+
+app.put('/yuo/:id', async (req, res) => {
+    try {
+        const formats = await Musicformats.findByPk(req.params.id);
+        if (!formats) {
+            res.status(404).json({ error: 'formats not found' });
+        } else {
+            await formats.update(req.body);
+            res.status(200).json(formats); // ส่งข้อมูลที่ถูกแก้ไขคืนไป
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+    app.delete('/yuo/:id', async (req, res) => {
+        try {
+            const formats = await Musicformats.findByPk(req.params.id);
+            if (!formats) {
+                res.status(404).json({ error: 'formats not found' });
+            } else {
+                await formats.destroy();
+                res.status(204).json({});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+
+
+
+//ของ table music
+app.get('/test', (req, res) => {
+    Music.findAll().then(music => {
+        res.json(music);
+    }).catch(err =>{
+        res.status(500).send(err);
+    });
+});
+
+app.get('/test/:id', (req, res) => {
+    Music.findByPk(req.params.id).then(music => {
+    if (!music) {
+            res.status (404).send('music not found');
+        } else {    
+            res.json(music) ;
+        }
+        }).catch(err => {
+            res.status(500).send(err);
+        });
+    });
+
+app.post('/test',(req,res) => {
+    Music.create(req.body).then(music => {
+        res.send(music);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+
+});
+
+app.put('/test/:id', async (req, res) => {
+    try {
+        const music = await Music.findByPk(req.params.id);
+        if (!music) {
+            res.status(404).json({ error: 'Music not found' });
+        } else {
+            await music.update(req.body);
+            res.status(200).json(music); // ส่งข้อมูลที่ถูกแก้ไขคืนไป
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+    app.delete('/test/:id', async (req, res) => {
+        try {
+            const music = await Music.findByPk(req.params.id);
+            if (!music) {
+                res.status(404).json({ error: 'music not found' });
+            } else {
+                await music.destroy();
+                res.status(204).json({});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+
 //ของ table composer
-app.get('/getcom', (req, res) => {
+app.get('/com', (req, res) => {
     Composer.findAll().then(composer => {
         res.json(composer);
     }).catch(err =>{
@@ -79,7 +202,7 @@ app.get('/getcom', (req, res) => {
     });
 });
 
-app.get('/getcom/:id', (req, res) => {
+app.get('/com/:id', (req, res) => {
     Composer.findByPk(req.params.id).then(composer => {
     if (!composer) {
             res.status (404).send('composer not found');
@@ -100,7 +223,7 @@ app.post('/com',(req,res) => {
 
 });
 
-app.put('/getcom/:id', (req, res) => {
+app.put('/com/:id', (req, res) => {
     Composer.findByPk( req.params.id).then(composer => {
     if (!composer) {
         res.status(404).send('composer not found');
@@ -116,20 +239,19 @@ app.put('/getcom/:id', (req, res) => {
     });
 });
 
-app.delete('/getcom/:id', (req, res) => {
-    Composer.findByPk(req.params.id).then(composer => {
-    if (!composer) {
-        res.status(404).send('composer not found');
-    } else {
-        composer.destroy().then(() => {
-        res.send({});screenY
-    }).catch(err => {
-        res.status (500) .send(err);
-    });
-    }
-    }).catch(err => {
-    res.status(500).send(err);
-    });
+    app.delete('/com/:id', async (req, res) => {
+        try {
+            const composer = await Composer.findByPk(req.params.id);
+            if (!composer) {
+                res.status(404).json({ error: 'Composer not found' });
+            } else {
+                await composer.destroy();
+                res.status(204).json({});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     });
 
 app.listen(5500, () => {
