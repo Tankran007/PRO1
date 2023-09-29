@@ -14,17 +14,23 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 //Employee
 const MusicAlbums = sequelize.define('MusicAlbum', {
-    musicformat: {
+    musicID: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
-        primaryKey:true
+        primaryKey:true,
+        
+    },
+    musicformat: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+        
     },
     music: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     Composer: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     }
     
@@ -70,6 +76,66 @@ const Composer = sequelize.define('Composer', {
     
 });
 sequelize.sync();
+
+//ของ table MusicAlbums
+app.get('/iu', (req, res) => {
+    MusicAlbums.findAll().then(musicAlbums => {
+        res.json(musicAlbums);
+    }).catch(err =>{
+        res.status(500).send(err);
+    });
+});
+
+app.get('/iu/:id', (req, res) => {
+    MusicAlbums.findByPk(req.params.id).then(musicAlbums => {
+    if (!musicAlbums) {
+            res.status (404).send('music not found');
+        } else {    
+            res.json(musicAlbums) ;
+        }
+        }).catch(err => {
+            res.status(500).send(err);
+        });
+    });
+
+app.post('/iu',(req,res) => {
+    MusicAlbums.create(req.body).then(musicAlbums => {
+        res.send(musicAlbums);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+
+});
+
+app.put('/iu/:id', async (req, res) => {
+    try {
+        const musicAlbums = await MusicAlbums.findByPk(req.params.id);
+        if (!formats) {
+            res.status(404).json({ error: 'musicAlbums not found' });
+        } else {
+            await musicAlbums.update(req.body);
+            res.status(200).json(musicAlbums); // ส่งข้อมูลที่ถูกแก้ไขคืนไป
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+    app.delete('/iu/:id', async (req, res) => {
+        try {
+            const musicAlbums = await MusicAlbums.findByPk(req.params.id);
+            if (!musicAlbums) {
+                res.status(404).json({ error: 'musicAlbums not found' });
+            } else {
+                await musicAlbums.destroy();
+                res.status(204).json({});
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
 
 
 
