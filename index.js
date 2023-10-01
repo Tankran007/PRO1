@@ -21,6 +21,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + "/public"));
 
+app.get("/cps", async (req, res) => {
+  try {
+      const response = await axios.get(base_url + '/com');
+      res.render("composers", { composers: response.data });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
 app.get("/msn", async (req, res) => {
   try {
       const response = await axios.get(base_url + '/test');
