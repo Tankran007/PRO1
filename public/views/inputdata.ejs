@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create musicalbum</title>
+    <title>Create MusicAlbum</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <h1>Create musicalbum</h1>
+    <h1>Create MusicAlbum</h1>
     <form method="post" action="/inab">
       <label >musicformat:</label>
   
@@ -37,8 +37,8 @@
       <!-- <input type="text"  name="Composer" /> -->
       <select name="Composer" >
         <!-- ทำให้การเลือก shelf เป็นแบบ select เพื่อป้องกันไม่ให้เลือก shelf ที่ไม่มีอยู่ในระบบ -->
-        <% for(var i=0; i < music.length; i++) { %> 
-        <option value="<%= Composer[i].id_com %>">ID com : <%= Composer[i].id_com %> music : <%= Composer[i].composer_name %></option>
+        <% for(var i=0; i < Composer.length; i++) { %> 
+        <option value="<%= Composer[i].id_com %>">ID com : <%= Composer[i].id_com %> Composer : <%= Composer[i].composer_name %></option>
         <% } %>
     </select>
       <br />

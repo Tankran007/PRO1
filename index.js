@@ -69,6 +69,19 @@ app.post("/inab", async (req, res) => {
     }
   });
 
+
+  app.get("/test", async (req, res) => {
+    try {
+      const musicformatdata = await axios.get(base_url + '/yuo');
+      const musicdata = await axios.get(base_url + '/test');
+      const Composerdata = await axios.get(base_url + '/com');
+        res.render("test", { musicformat: musicformatdata.data, music: musicdata.data, Composer:Composerdata.data});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+  });
+
 // app.get("/book/:id" , async (req, res) => {
 //   try {
 //       const response = await axios.get(base_url + '/books/' + req.params.id);
