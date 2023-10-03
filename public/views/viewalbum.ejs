@@ -1,0 +1,27 @@
+<!-- book.ejs -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <h1>View Book</h1>
+    <table class="book-table">
+      <tr>
+        <th>MUSICFORMAT</th>
+        <th>MUSICNAME</th>
+        <th>COMPOSERNAME</th>
+      </tr>
+      <tr>
+        <td><%= musicformat.musicformat %></td>
+        <td><%= music.music_name %></td>
+        <td><%= Composer.composer_name %></td>
+      </tr>
+    </table>
+    <div class="link-center">
+
+      <a href="/">Back to List</a>
+    </div>
+  </body>
+</html>

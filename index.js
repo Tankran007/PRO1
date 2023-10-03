@@ -21,6 +21,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + "/public"));
 
+app.get("/viewalbum/:id1/:id2/:id3", async (req, res) => {
+  try {
+
+      const formatname = await axios.get(base_url + '/yuo/'+req.params.id1);
+      const musicname = await axios.get(base_url + '/test/'+req.params.id2);
+      const composername = await axios.get(base_url + '/com/'+req.params.id3);
+      res.render("viewalbum", { musicformat: formatname.data, music: musicname.data, Composer:composername.data });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
 app.get("/cps", async (req, res) => {
   try {
       const response = await axios.get(base_url + '/com');
@@ -70,12 +83,13 @@ app.post("/inab", async (req, res) => {
   });
 
 
-  app.get("/test", async (req, res) => {
+  app.get("/", async (req, res) => {
     try {
+      const musicalbum = await axios.get(base_url + '/iu');
       const musicformatdata = await axios.get(base_url + '/yuo');
       const musicdata = await axios.get(base_url + '/test');
       const Composerdata = await axios.get(base_url + '/com');
-        res.render("test", { musicformat: musicformatdata.data, music: musicdata.data, Composer:Composerdata.data});
+        res.render("test", {  musicalbum: musicalbum.data,musicformat: musicformatdata.data, music: musicdata.data, Composer:Composerdata.data});
     } catch (err) {
         console.error(err);
         res.status(500).send('Error');
@@ -129,15 +143,48 @@ app.post("/inab", async (req, res) => {
 //   }
 // });
 
-// app.get("/delete/:id", async (req, res) => {
-//   try {
-//       await axios.delete(base_url + '/books/' + req.params.id);
-//       res.redirect("/");
-//   } catch (err) {
-//       console.error(err);
-//       res.status(500).send('Error');
-//   }
-// });
+app.get("/delete/:id", async (req, res) => {
+  try {
+      await axios.delete(base_url + '/iu/' + req.params.id);
+      res.redirect("/");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
+app.get("/delete1/:id", async (req, res) => {
+  try {
+      await axios.delete(base_url + '/com/' + req.params.id);
+      res.redirect("/cps");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
+app.get("/delete2/:id", async (req, res) => {
+  try {
+      await axios.delete(base_url + '/test/' + req.params.id);
+      res.redirect("/msn");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
+app.get("/delete3/:id", async (req, res) => {
+  try {
+      await axios.delete(base_url + '/yuo/' + req.params.id);
+      res.redirect("/formatview");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
+
+
 
 //app.listen(8080, () => {
 //    console.log('Server started on port 8080');

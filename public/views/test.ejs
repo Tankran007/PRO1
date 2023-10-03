@@ -14,21 +14,23 @@
         <th>Composername</th>
         <th>Actions</th>
       </tr>
-      <% for(var i=0; i < musicformat.length; i++) { %>
+      <% for(var i=0; i < musicalbum.length; i++) { %>
         <tr>
-          <td><%= musicformat[i].musicformat %></td>
-          <td><%= music[i].music_name %></td>
-          <td><%= Composer[i].composer_name %></td>
+          <td><%= musicalbum[i].musicformat %></td>
+          <td><%= musicalbum[i].music%></td>
+          <td><%= musicalbum[i].Composer %></td>
+
           <td>
-            <a href="/update/<%= musicformat[i].id_fom %>">Edit</a>
-            <a href="/delete/<%= musicformat[i].id_fom %>">Delete</a>
+            <a href="/viewalbum/<%= musicalbum[i].musicformat %>/<%= musicalbum[i].music%>/<%= musicalbum[i].Composer %>">view</a>
+            <a href="/update/<%= musicalbum[i].musicID %>">Edit</a>
+            <a href="/delete/<%= musicalbum[i].musicID %>">Delete</a>
           </td>
         </tr>
       <% } %>
     </table>
     
     <div class="link-center">
-      <a href="/create">Create New Musicformat</a>
+      <a href="/inab">Create New Musicformat</a>
     </div>
   </body>
   </html>
