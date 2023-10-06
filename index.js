@@ -121,7 +121,7 @@ app.post("/inab", async (req, res) => {
 //   }
 // });
 app.get("/inab2", async(req, res) => {
-  res.render("create");
+  res.render("createcomposer");
 }); 
 
 app.post("/inab2", async (req, res) => {
@@ -134,6 +134,36 @@ app.post("/inab2", async (req, res) => {
         res.status(500).send('Error');
     }
   });
+
+  app.get("/inab3", async(req, res) => {
+    res.render("createmusic");
+  }); 
+  
+  app.post("/inab3", async (req, res) => {
+      try {
+          const data = {music_name: req.body.music_name};
+          await axios.post(base_url + '/test', data);
+          res.redirect("/msn");
+      } catch (err) {
+          console.error(err);
+          res.status(500).send('Error');
+      }
+    });
+
+    app.get("/inab4", async(req, res) => {
+      res.render("createformat");
+    }); 
+    
+    app.post("/inab4", async (req, res) => {
+        try {
+            const data = {musicformat: req.body.musicformat};
+            await axios.post(base_url + '/yuo', data);
+            res.redirect("/formatview");
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error');
+        }
+      });
 
   
 app.get("/updateab/:id", async (req, res) => {
