@@ -113,13 +113,52 @@ app.post("/inab", async (req, res) => {
 // app.post("/create", async (req, res) => {
 //   try {
 //       const data = { title: req.body.title, author: req.body.author };
-//       await axios.post(base_url + '/books', data);
+//       await axios.post(base_url + '/Composers', data);
 //       res.redirect("/");
 //   } catch (err) {
 //       console.error(err);
 //       res.status(500).send('Error');
 //   }
 // });
+app.get("/inab2", async(req, res) => {
+  res.render("create");
+}); 
+
+app.post("/inab2", async (req, res) => {
+    try {
+        const data = {composer_name: req.body.composer_name};
+        await axios.post(base_url + '/com', data);
+        res.redirect("/cps");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+  });
+
+  
+app.get("/updateab/:id", async (req, res) => {
+  try {
+        const musicalbumid = await axios.get(base_url + '/iu/'+req.params.id);
+        const musicformatdata = await axios.get(base_url + '/yuo');
+        const musicdata = await axios.get(base_url + '/test');
+        const Composerdata = await axios.get(base_url + '/com');
+        res.render("updatemusicab", { musicalbumid:musicalbumid.data, musicformat: musicformatdata.data, music: musicdata.data, Composer:Composerdata.data});
+      } catch (err) {
+          console.error(err);
+          res.status(500).send('Error');
+      }
+});
+
+  app.post("/updateab/:id", async (req, res) => {
+    try {
+        const data = { musicformat: req.body.musicformat, music: req.body.music , Composer: req.body.Composer };
+        await axios.put(base_url + '/iu/' + req.params.id, data);
+        res.redirect("/");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+  });
 
 // app.get("/update/:id", async (req, res) => {
 //   try {

@@ -110,7 +110,7 @@ app.post('/iu',(req,res) => {
 app.put('/iu/:id', async (req, res) => {
     try {
         const musicAlbums = await MusicAlbums.findByPk(req.params.id);
-        if (!formats) {
+        if (!musicAlbums) {
             res.status(404).json({ error: 'musicAlbums not found' });
         } else {
             await musicAlbums.update(req.body);
