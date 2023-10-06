@@ -21,12 +21,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + "/public"));
 
-app.get("/viewalbum/:id1/:id2/:id3", async (req, res) => {
+app.get("/viewalbum", async (req, res) => {
   try {
 
-      const formatname = await axios.get(base_url + '/yuo/'+req.params.id1);
-      const musicname = await axios.get(base_url + '/test/'+req.params.id2);
-      const composername = await axios.get(base_url + '/com/'+req.params.id3);
+      const formatname = await axios.get(base_url + '/yuo/'+req.query.id1);
+      const musicname = await axios.get(base_url + '/test/'+req.query.id2);
+      const composername = await axios.get(base_url + '/com/'+req.query.id3);
       res.render("viewalbum", { musicformat: formatname.data, music: musicname.data, Composer:composername.data });
   } catch (err) {
       console.error(err);

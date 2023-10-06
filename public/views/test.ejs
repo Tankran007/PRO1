@@ -21,7 +21,7 @@
           <td><%= musicalbum[i].Composer %></td>
 
           <td>
-            <a href="/viewalbum/<%= musicalbum[i].musicformat %>/<%= musicalbum[i].music%>/<%= musicalbum[i].Composer %>">view</a>
+            <a href="/viewalbum?id1=<%=musicalbum[i].musicformat%>&id2=<%=musicalbum[i].music%>&id3=<%=musicalbum[i].Composer%>">view</a>
             <a href="/update/<%= musicalbum[i].musicID %>">Edit</a>
             <a href="/delete/<%= musicalbum[i].musicID %>">Delete</a>
           </td>
