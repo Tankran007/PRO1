@@ -190,6 +190,73 @@ app.get("/updateab/:id", async (req, res) => {
     }
   });
 
+  app.get("/updatefm/:id", async (req, res) => {
+    try {
+        const response = await axios.get(
+            base_url + '/yuo/' + req.params.id);
+            res.render("updateformat", {musicformat: response.data});
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error');
+        }
+  });
+  
+  app.post("/updatefm/:id", async (req, res) => {
+    try {
+        const data = { musicformat : req.body.musicformat};
+        await axios.put(base_url + '/yuo/' + req.params.id, data);
+        res.redirect("/formatview");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+  });
+
+  app.get("/updatems/:id", async (req, res) => {
+    try {
+        const response = await axios.get(
+            base_url + '/test/' + req.params.id);
+            res.render("updatems", {music: response.data});
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error');
+        }
+  });
+  
+  app.post("/updatems/:id", async (req, res) => {
+    try {
+        const data = { music_name : req.body.music_name};
+        await axios.put(base_url + '/test/' + req.params.id, data);
+        res.redirect("/msn");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+  });
+
+
+  app.get("/updatecps/:id", async (req, res) => {
+  try {
+      const response = await axios.get(
+          base_url + '/com/' + req.params.id);
+          res.render("updatecps", {composer: response.data});
+      } catch (err) {
+          console.error(err);
+          res.status(500).send('Error');
+      }
+});
+
+app.post("/updatecps/:id", async (req, res) => {
+  try {
+      const data = { composer_name : req.body.composer_name};
+      await axios.put(base_url + '/com/' + req.params.id, data);
+      res.redirect("/cps");
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error');
+  }
+});
+
 // app.get("/update/:id", async (req, res) => {
 //   try {
 //       const response = await axios.get(
