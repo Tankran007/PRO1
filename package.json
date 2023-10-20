@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "start": "node index.js",
+    "format": "prettier --write *.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -24,3 +25,6 @@
     "sqlite3": "^5.1.6"
   }
 }
+
+// "test": "echo \"Error: no test specified\" && exit 1",
+// "dev": "nodemon server.js"
