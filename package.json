@@ -21,6 +21,6 @@
     "http": "^0.0.1-security",
     "nodemon": "^3.0.1",
     "sequelize": "^6.33.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "5.0.2"
   }
 }
